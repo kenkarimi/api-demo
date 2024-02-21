@@ -1,95 +1,87 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
 
-export default function Home() {
+import React from 'react';
+import Cookies from 'js-cookie';
+
+import { FetchOptions } from './_utils/GetInterfacesAndTypes';
+import { AccountRequired } from './_utils/GetEnumerations';
+
+const Home = () => {
+
+  const options: FetchOptions = {
+    method: 'GET',
+    cache: 'no-store', //because its a sensitive api route, we don't want to cache it or have the resource returned as a result of this request cached.
+    headers: {
+      Accept: '*/*'
+    }
+  }
+  fetch('/api/home', options)
+  .then( (res: any) => res.json())
+  .then( (data: any) => {
+    if(data.success){
+      console.log('MESSAGE 1a', data.message);
+    } else {
+      console.log('MESSAGE 1b', data.message);
+    }
+  });
+
+  const options2: FetchOptions = {
+    method: 'POST',
+    cache: 'no-store', //because its a sensitive api route, we don't want to cache it or have the resource returned as a result of this request cached.
+    headers: {
+      Accept: '*/*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: 'azDexdFeXslMcy',
+      name: 'John Doe',
+      account: AccountRequired.Customer
+    })
+  }
+  fetch('/api/post', options2)
+  .then( (res: any) => res.json())
+  .then( (data: any) => {
+    if(data.success){
+      console.log('MESSAGE 2a', data.message);
+    } else {
+      console.log('MESSAGE 2b', data.message);
+    }
+  });
+
+  const options3: FetchOptions = {
+    method: 'PUT',
+    cache: 'no-store', //because its a sensitive api route, we don't want to cache it or have the resource returned as a result of this request cached.
+    headers: {
+      Accept: '*/*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Jane Doe',
+      account: AccountRequired.Admin
+    })
+  } //azDexdFeXslMcy
+  fetch('/api/put/15', options3)
+  .then( (res: any) => res.json())
+  .then( (data: any) => {
+    if(data.success){
+      console.log('MESSAGE 3a', data.message);
+      const cookie_value: string | undefined = Cookies.get('next_response_cookie');
+      if(cookie_value != undefined){
+        console.log('COOKIE', cookie_value);
+      } else {
+        console.log('Cookie unavailable...');
+      }
+      //NB: Working with next/headers to get headers has to be done in a react server component.
+    } else {
+      console.log('MESSAGE 3b', data.message);
+    }
+  });
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    <div>
+      <h1>Home Page...</h1>
+    </div>
+  )
 }
+
+export default Home;
