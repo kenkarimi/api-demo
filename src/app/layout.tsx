@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "./globals.css"; //Occasional error on this line on new projects happens because a particular version of typescript is unable to resolve CSS files due to a conflict between local configuration and a strict typescript version update. To fix it, manually create a globals.d.ts file at root level as seen in this project and make sure it's included in the "include" key in the file tsconfig.json
 
 const inter = Inter({ subsets: ["latin"] });
 

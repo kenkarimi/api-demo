@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import { FetchOptions } from './_utils/GetInterfacesAndTypes';
 import { AccountRequired } from './_utils/GetEnumerations';
 
+import styles from './page.module.css';
+
 const Home = () => {
 
   const options: FetchOptions = {
@@ -78,8 +80,8 @@ const Home = () => {
   });
 
   return (
-    <div>
-      <h1>Home Page...</h1>
+    <div className={styles.title_container}>
+      <h1 className={styles.title}>Home Page...</h1>
     </div>
   )
 }

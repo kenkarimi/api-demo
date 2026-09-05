@@ -4,6 +4,12 @@ const sleep = (milliseconds: number) => {
     return new Promise( (resolve) => setTimeout(resolve, milliseconds));
 }
 
+/**
+ * Next.js Middleware allows you to run custom code before a request is completed. 
+ * It acts as an intermediary, intercepting incoming HTTP requests so you can modify the response by rewriting, redirecting, altering headers, or handling cookies.
+ * NOTE: Deprecated after v15: https://nextjs.org/docs/14/app/building-your-application/routing/middleware
+ * It has been renamed to proxy.ts. The functionality remains the same, but the Next.js team made the change to clarify that this feature acts as a network and routing boundary, rather than traditional backend middleware.
+ */
 export const middleware = async (request: NextRequest) => {
     /**
      * use waitUntil() from NextFetchEvent if return statement (return NextResponse.next() is outside of the returned fetch/sleep promise(.then)
